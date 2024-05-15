@@ -34,7 +34,7 @@ public class Game extends Canvas implements KeyListener
     
     player = new Player(344,464);
     this.addKeyListener(this);
-    new Thread(this).start();
+    new Thread((Runnable)this).start();
 
     setVisible(true);
     
