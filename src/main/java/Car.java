@@ -15,9 +15,9 @@ public class Car implements Collideable
   public Car(){
     xPos = 10;
     yPos = 10;
-    width = 60;
-    height = 100;
-    speed = 2;
+    width = 120;
+    height = 150;
+    speed = 3;
   }
 
   public Car(int x, int y){

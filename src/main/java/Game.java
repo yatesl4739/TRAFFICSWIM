@@ -34,7 +34,7 @@ public class Game extends Canvas implements KeyListener, Runnable
     keys = new boolean[8];
 
     
-    player = new Player(344,464);
+    player = new Player(344,424);
     this.addKeyListener(this);
    
     new Thread(this).start();
@@ -46,6 +46,9 @@ public class Game extends Canvas implements KeyListener, Runnable
     paint(window);
   }
 
+
+
+  //INFINATE BACKGROUND::
   boolean new1 = false;
   public void paint(Graphics window){
     Graphics2D twoDGraph = (Graphics2D) window;
@@ -66,8 +69,28 @@ public class Game extends Canvas implements KeyListener, Runnable
       backgroundUP.draw(graphToBack);
       backgroundUP.increment();
     }
+    if(desertTest.getY()>600){
+      desertTest = backgroundUP;
+      new1 = false;
+    }
     
 
+    // DONE INFINATE BACKGROUND
+
+    player.draw(graphToBack);
+
+    if(keys[0]){
+      if(player.getX()>119){
+        player.move("left");
+      }
+    }
+    if(keys[1]){
+      if(player.getX()+player.getWidth()<673){
+        
+      player.move("right");
+      }
+    }
+   // System.out.println(player.getX()+player.getWidth());
     
     //PUT EVERYTHING HERE!!!
 

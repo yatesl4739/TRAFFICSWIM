@@ -27,5 +27,13 @@ public class Player extends Car
       //feel free to do something here
     }
   }
+
+
+  public void draw( Graphics window )
+    {
+
+      window.drawImage(image,getX(),getY(),getWidth(),getHeight(), null);
+    }
+
   
 }
