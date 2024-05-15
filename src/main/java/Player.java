@@ -20,7 +20,7 @@ public class Player extends Car
 
     try {
 
-      URL url = getClass().getResource("WHITECAR.png");
+      URL url = getClass().getResource("/src/main/java/WHITECAR.png");
       image = ImageIO.read(url);
     } catch (Exception e) {
       System.out.println("PROBLEM WITH PLAYER IMAGE");

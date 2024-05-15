@@ -7,7 +7,7 @@ import java.net.URL;
 public class Background
 {
   int x = 0;
-  int y = 0; 
+  int y = -600; 
   int speed = 2;
   Image image; 
 
@@ -15,7 +15,7 @@ public class Background
   public Background(){
     try {
 
-      URL url = getClass().getResource("background.png");
+      URL url = getClass().getResource("/src/main/java/background.png");
       image = ImageIO.read(url);
     } catch (Exception e) {
       System.out.println("PROBLEM WITH BACKGROUND IMAGE");

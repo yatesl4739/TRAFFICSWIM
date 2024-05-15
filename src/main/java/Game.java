@@ -18,6 +18,7 @@ public class Game extends Canvas implements KeyListener, Runnable
   //defining variables
   private Player player;
   private Background desertTest = new Background();
+  private Background backgroundUP;
   int ticker = 0;
   
 
@@ -45,6 +46,7 @@ public class Game extends Canvas implements KeyListener, Runnable
     paint(window);
   }
 
+  boolean new1 = false;
   public void paint(Graphics window){
     Graphics2D twoDGraph = (Graphics2D) window;
 
@@ -55,6 +57,18 @@ public class Game extends Canvas implements KeyListener, Runnable
     Graphics graphToBack = back.createGraphics();
 
     desertTest.draw(graphToBack);
+    desertTest.increment();
+    if(desertTest.getY()>-300){
+      if(!new1){
+        backgroundUP = new Background(0,-1900);
+        new1 = !new1;
+      }
+      backgroundUP.draw(graphToBack);
+      backgroundUP.increment();
+    }
+    
+
+    
     //PUT EVERYTHING HERE!!!
 
 
