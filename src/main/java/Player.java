@@ -14,20 +14,18 @@ public class Player extends Car
     this(344,464);
     
   }
-  public Player(int x, int y){
-    this(x,y);
-    
-  }
-  try
-  {
-    //coltons face
-    URL url = getClass().getResource("WHITECAR.png");
-    image = ImageIO.read(url);
-  }
-  catch(Exception e)
-  {
-    //feel free to do something here
-  }
+  public Player(int x, int y) {
+    super(x, y);
 
+
+    try {
+
+      URL url = getClass().getResource("WHITECAR.png");
+      image = ImageIO.read(url);
+    } catch (Exception e) {
+      System.out.println("PROBLEM WITH PLAYER IMAGE");
+      //feel free to do something here
+    }
+  }
   
 }

@@ -36,7 +36,7 @@ public class Game extends Canvas implements KeyListener
     this.addKeyListener(this);
     new Thread(this).start();
 
-    setInvisible(true);
+    setVisible(true);
     
   }
 
@@ -136,7 +136,10 @@ public class Game extends Canvas implements KeyListener
 
   }
 
+@Override
+public void keyTyped(KeyEvent e) {
 
+}
   public void run() {
     try {
       while (true) {
