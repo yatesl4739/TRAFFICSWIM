@@ -10,13 +10,14 @@ import java.awt.image.BufferedImage;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Thread;
 
 public class Game extends Canvas implements KeyListener
 {
 
   //defining variables
   private Player player;
-
+  private Background desertTest = new Background();
   int ticker = 0;
   
 
@@ -34,7 +35,8 @@ public class Game extends Canvas implements KeyListener
     
     player = new Player(344,464);
     this.addKeyListener(this);
-    new Thread((Runnable)this).start();
+   
+    new Thread(game).start();
 
     setVisible(true);
     
@@ -51,8 +53,9 @@ public class Game extends Canvas implements KeyListener
     if (back == null)
       back = (BufferedImage) (createImage(getWidth(), getHeight()));
 
+    Graphics graphToBack = back.createGraphics();
 
-
+    desertTest.draw(graphToBack);
     //PUT EVERYTHING HERE!!!
 
 
@@ -136,10 +139,6 @@ public class Game extends Canvas implements KeyListener
 
   }
 
-@Override
-public void keyTyped(KeyEvent e) {
-
-}
   public void run() {
     try {
       while (true) {
@@ -150,4 +149,10 @@ public void keyTyped(KeyEvent e) {
 
     }
   }
+  
+@Override
+public void keyTyped(KeyEvent e) {
+
+}
+  
 }
