@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.Thread;
 
-public class Game extends Canvas implements KeyListener
+public class Game extends Canvas implements KeyListener, Runnable
 {
 
   //defining variables
@@ -36,8 +36,7 @@ public class Game extends Canvas implements KeyListener
     player = new Player(344,464);
     this.addKeyListener(this);
    
-    new Thread(game).start();
-
+    new Thread(this).start();
     setVisible(true);
     
   }
