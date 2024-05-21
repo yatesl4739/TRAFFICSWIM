@@ -1,95 +1,108 @@
-import java.util.*;
 import java.awt.*;
 import javax.imageio.ImageIO;
-import java.io.File;
 import java.net.URL;
 
-public class Background
-{
-  int x = 0;
-  int y = -600; 
-  int speed = 2;
-  Image image; 
+public class Background {
+
+  //VARIABLES
+    private int x = 0;
+    private int y = -600;
+    private int speed = 0; //original speed = 6
+    private Image image;
 
 
-  public Background(){
-    try {
 
-      URL url = getClass().getResource("/src/main/java/background.png");
-      image = ImageIO.read(url);
-    } catch (Exception e) {
-      System.out.println("PROBLEM WITH BACKGROUND IMAGE");
-      //feel free to do something here
-    }
-    
-  }
-
-  public Background(Image img){
-    try {
-
-      
-      image = img;
-    } catch (Exception e) {
-      System.out.println("PROBLEM WITH BACKGROUND IMAGE");
-      //feel free to do something here
-    }
-
-  }
-  public Background(int x, int y){
-    this();
-    this.x = x;
-    this.y = y;
-  }
-
-  public Background(int x, int y, int s){
-    this(x,y);
-    speed = s;
-  }
-
-
-  public void setX(int x){
-    this.x = x;
-    
-  }
-  public void setY(int y){
-    this.y = y;
-  }
-  public void setPos(int x, int y){
-    this.setX(x);
-    this.setY(y);
-  }
-
-  public void setSpeed(int s){
-    speed = s;
-  }
-
-
-  //basically a move method
-  public void increment(){
-    this.setY(this.getY()+speed);
-  }
-  public void move(){
-    increment();
-  }
-
-  public void draw( Graphics window )
-    {
-
-      window.drawImage(image,getX(),getY(),null);
-    }
-
-
-  //GETTESR
-
-  public int getY(){
-    return y;
-  }
-  public int getX(){
-    return x;
-  }
-
-  public int getSpeed(){
-    return speed;
-  }
   
+  //DEFAULT CONSTRUCTORS
+    public Background(){
+        try {
+            URL url = getClass().getResource("/src/main/java/background.png");
+            image = ImageIO.read(url);
+            
+        }
+        catch(Exception e){
+            System.out.println("PROBLEM WITH BACKGROUND IMAGE");
+           //feel free to do something here 
+        }
+    }
+    
+    public Background(String imageName) {
+        try {
+            URL url = getClass().getResource(imageName);
+            image = ImageIO.read(url);
+        } catch (Exception e) {
+            System.out.println("PROBLEM WITH BACKGROUND IMAGE");
+            e.printStackTrace();
+        }
+    }
+
+    public Background(String imageName, int x, int y) {
+        this(imageName);
+        this.x = x;
+        this.y = y;
+    }
+
+    public Background(String imageName, int x, int y, int s) {
+        this(imageName, x, y);
+        speed = s;
+    }
+
+
+
+
+
+  
+  //SETTERS
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setPos(int x, int y) {
+        this.setX(x);
+        this.setY(y);
+    }
+
+    public void setSpeed(int s) {
+        speed = s;
+    }
+
+
+
+
+  
+  //MOVE METHODS AND DRAW METHODS
+    public void increment() {
+        this.setY(this.getY() + speed);
+    }
+
+    public void draw(Graphics window) {
+        window.drawImage(image, (int)(getX()), (int)(getY()), null);
+    }
+
+
+
+
+
+
+  
+  //GETTERS
+    public int getY() {
+        return y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public int getImageHeight() {
+        return image.getHeight(null);
+    }
 }

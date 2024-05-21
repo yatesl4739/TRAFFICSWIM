@@ -1,5 +1,9 @@
 import java.util.*;
 import java.awt.*;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.net.URL;
+
 
 public class Car implements Collideable
 {
@@ -8,6 +12,7 @@ public class Car implements Collideable
   public int speed;
   public int width;
   public int height;
+  public Image mainImage;
 
 
   
@@ -18,6 +23,16 @@ public class Car implements Collideable
     width = 120;
     height = 150;
     speed = 3;
+    try{
+    URL url = getClass().getResource("/src/main/java/COPCAR.png");
+    mainImage = ImageIO.read(url);
+    }
+    catch (Exception e) {
+      System.out.println("PROBLEM WITH CAR IMAGE");
+      //feel free to do something here
+    }
+
+    
   }
 
   public Car(int x, int y){
@@ -26,6 +41,21 @@ public class Car implements Collideable
     yPos = y;
     
     
+  }
+
+  public Car(int x, int y, Image imgParm){
+    this();
+    try {
+
+     
+      mainImage = imgParm;
+      
+    } catch (Exception e) {
+      System.out.println("PROBLEM WITH CAR IMAGE");
+      //feel free to do something here
+    }
+    xPos = x;
+    yPos = y;
   }
 
   public Car(int x, int y, int w, int h){
@@ -66,6 +96,7 @@ public class Car implements Collideable
 
 
 
+
   
 // Set/Get position constructors
   public void setPos(int x, int y){
@@ -92,6 +123,8 @@ public class Car implements Collideable
 
 
 
+
+  
   // Set/Get speed constructors
   public void setSpeed(int s){
     speed = s;
@@ -119,9 +152,9 @@ public class Car implements Collideable
       xPos -= speed;
       return true;
     }
-    
+
     //throw error if no matching move string is passed
-    System.out.println("ERROR CAR MOVE METHOD: INCORRECT INPUT");
+    //System.out.println("ERROR CAR MOVE METHOD: INCORRECT INPUT");
     
     return false;
     
@@ -138,6 +171,20 @@ public class Car implements Collideable
     return true;
   }
 
+  
+
+  public void draw( Graphics window )
+    {
+
+      window.drawImage(mainImage,(int)(getX()),(int)(getY()),getWidth(),getHeight(), null);
+    }
+
+  @Override
+  public String toString(){
+    String sendThisOut = "";
+    sendThisOut += "POS: " + xPos + ", " + yPos + " "+ speed + " "+width + " " + height + " ";
+    return sendThisOut;
+  }
 
 
   
