@@ -9,6 +9,8 @@ public class Traffic
 {
 
   //VARIABLES
+  int TrafficTick = 0;
+  int[] lastPicked = {60,60,60,60};
   double spawnChance = .01;
   ArrayList<Car> trafficList;
 
@@ -105,25 +107,32 @@ public class Traffic
   
   //RANDOM LANE PICKING METHOD
   public int randomLanePicker(){
-
+    for(int i = 0; i<lastPicked.length; i++){
+      lastPicked[i]++;
+    }
     double randomDec = Math.random();
     int lane = (int)(Math.random()*4);
     if(randomDec<spawnChance){
-      if(lane == 0){
-        return 136;
+      if(lane == 0 && (lastPicked[0]>50)){
+        lastPicked[0]=0;
+        return 146;
+        
+        
         //return REPLACE THIS WITH THE LOCATION OF FIRST LANE
       }
-      else if(lane ==1){
-        return 272;
+      else if(lane ==1 && lastPicked[1]>50){
+        lastPicked[1] = 0;
+        return 282;
         //return REPLACE THIS WITH THE LOCATION OF LANE TWO
       }
-      else if(lane ==2){
-        return 408;
+      else if(lane == 2 && lastPicked[2]>50){
+        lastPicked[2] = 0;
+        return 418;
         //reuturn REPLACE THIS WITH LOCATION OF LANE THREE
       }
-      else if(lane ==3){
-
-        return 544;
+      else if(lane ==3 && lastPicked[3]>50){
+        lastPicked[3] = 0;
+        return 554;
       }
 
     }
@@ -162,5 +171,25 @@ public class Traffic
     }
   }
 
+
+
+  public void removeTraffic(){
+    int sizeOfList = trafficList.size();
+    for(int i = 0; i<sizeOfList; i++){
+      trafficList.remove(0);
+    }
+    for(int i = 0; i<lastPicked.length; i++){
+      lastPicked[i] = 60;
+    }
+  }
+
+  public boolean didCollideWithPlayer(Player player){
+    for(int i = 0; i<trafficList.size(); i++){
+      if(trafficList.get(i).didCollide(player)){
+        return true;
+      }
+    }
+    return false;
+  }
 
 }

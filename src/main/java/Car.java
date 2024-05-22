@@ -20,7 +20,7 @@ public class Car implements Collideable
   public Car(){
     xPos = 10;
     yPos = 10;
-    width = 120;
+    width = 80;
     height = 150;
     speed = 3;
     try{
@@ -162,10 +162,17 @@ public class Car implements Collideable
 
   @Override 
   public boolean didCollide(Car other){
-    if(this.getX() + this.getWidth() < other.getX() || this.getX() > other.getX() + other.getWidth()) {
+    //the 20s make the hit boxes slightly too small cause otherwise its too hard. We allow for a tiny bit of collision.
+    if(this.getY()-20>other.getY()+other.getHeight() || this.getX()+this.getWidth()-20 < other.getX() || this.getX()+20>other.getX()+other.getWidth() || this.getY()+this.getHeight()-20<other.getY()){
       return false;
     }
-    if(this.getY() + this.getHeight() < other.getY() || this.getY() > other.getY() + other.getHeight()) {
+    return true;
+  }
+
+
+  //THIS IS NOT YET IMPLEMENTED BUT IS JUST A COLLISION CHECKER WITHOUT THE 20, WHEN THIS IS TRIGGERED THE CARS HIT BUT ITS NOT GAME OVER
+  public boolean nearMiss(Car other){
+    if(this.getY()>other.getY()+other.getHeight() || this.getX()+this.getWidth() < other.getX() || this.getX()>other.getX()+other.getWidth() || this.getY()+this.getHeight()<other.getY()){
       return false;
     }
     return true;
