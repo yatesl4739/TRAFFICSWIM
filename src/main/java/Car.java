@@ -161,12 +161,24 @@ public class Car implements Collideable
   }
 
   @Override 
-  public boolean didCollide(Car other){
+  public boolean didCollide(Player other){
     //the 20s make the hit boxes slightly too small cause otherwise its too hard. We allow for a tiny bit of collision.
-    if(this.getY()-20>other.getY()+other.getHeight() || this.getX()+this.getWidth()-20 < other.getX() || this.getX()+20>other.getX()+other.getWidth() || this.getY()+this.getHeight()-20<other.getY()){
+
+    //when the car is turning, adjust for the turning by making hitboxes vertically smaller
+    if(other.isTurning){
+     
+      if(this.getY()-40>other.getY()+other.getHeight() || this.getX()+this.getWidth()-40 < other.getX() || this.getX()+40>other.getX()+other.getWidth() || this.getY()+this.getHeight()-40<other.getY()){
       return false;
+      }
+      return true;
     }
-    return true;
+    else{
+      
+      if(this.getY()-20>other.getY()+other.getHeight() || this.getX()+this.getWidth()-20 < other.getX() || this.getX()+20>other.getX()+other.getWidth() || this.getY()+this.getHeight()-20<other.getY()){
+        return false;
+      }
+      return true;
+    }
   }
 
 

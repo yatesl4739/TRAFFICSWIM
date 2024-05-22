@@ -31,7 +31,7 @@ public class Traffic
 
   //GETS A RANDOM COLOR CAR
   private Image randomCar(){
-    int randomInt = (int)(Math.random()*3);
+    int randomInt = (int)(Math.random()*4);
     Image returnThis = null;
 
     try {
@@ -60,6 +60,15 @@ public class Traffic
       try {
 
         URL url = getClass().getResource("/src/main/java/REDCAR.png");
+        returnThis = ImageIO.read(url);
+      } catch (Exception e) {
+        System.out.println("PROBLEM WITH TRAFFIC IMAGE");
+      }
+    }
+    if(randomInt == 2){
+      try {
+
+        URL url = getClass().getResource("/src/main/java/COPCAR.png");
         returnThis = ImageIO.read(url);
       } catch (Exception e) {
         System.out.println("PROBLEM WITH TRAFFIC IMAGE");
@@ -120,8 +129,8 @@ public class Traffic
         
         //return REPLACE THIS WITH THE LOCATION OF FIRST LANE
       }
-      else if(lane ==1 && lastPicked[1]>50){
-        lastPicked[1] = 0;
+      else if(lane ==1 && lastPicked[0]>50){
+        lastPicked[0] = 0;
         return 282;
         //return REPLACE THIS WITH THE LOCATION OF LANE TWO
       }
@@ -130,8 +139,8 @@ public class Traffic
         return 418;
         //reuturn REPLACE THIS WITH LOCATION OF LANE THREE
       }
-      else if(lane ==3 && lastPicked[3]>50){
-        lastPicked[3] = 0;
+      else if(lane ==3 && lastPicked[2]>50){
+        lastPicked[2] = 0;
         return 554;
       }
 

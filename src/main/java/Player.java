@@ -11,6 +11,7 @@ public class Player extends Car
   //VARIABLES
   private Image image;
   private double rotationAngle;
+  public boolean isTurning = false;
 
 
 
@@ -67,10 +68,10 @@ public class Player extends Car
     boolean moved = super.move(direction);
 
     if(direction.equals("left")){
-      rotationAngle = Math.toRadians(-3);
+      rotationAngle = Math.toRadians(-7);
     }
     else if(direction.equals("right")){
-      rotationAngle = Math.toRadians(3);
+      rotationAngle = Math.toRadians(7);
     }
     else if(direction.equals("straight")){
       rotationAngle = 0;

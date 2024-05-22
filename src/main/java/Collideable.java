@@ -1,4 +1,4 @@
 public interface Collideable<T>
 {
-  boolean didCollide(Car other);
+  boolean didCollide(Player other);
 }

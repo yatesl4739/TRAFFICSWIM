@@ -20,8 +20,12 @@ public class Game extends Canvas implements KeyListener, Runnable {
   // private Background desertBackground2;
   // private Background currentBackground;
   // private Background nextBackground;
+
+  //play status
   private boolean playing = false;
   private boolean lost = false;
+  private boolean hitWall = false;
+  
   private Score score = new Score();
   private Traffic traffic = new Traffic();
   private boolean[] keys;
@@ -39,7 +43,7 @@ public class Game extends Canvas implements KeyListener, Runnable {
     setBackground(Color.WHITE);
     keys = new boolean[9];
 
-    player = new Player(344, 424);
+    player = new Player(344, 524);
     this.addKeyListener(this);
 
     background1 = new Background("src/main/java/background.png", 0, 1300);
@@ -95,7 +99,12 @@ public class Game extends Canvas implements KeyListener, Runnable {
     // TICK BACKGROUND RAMP UP
 
     if ((background1.getSpeed() == 0 && keys[8]) || playing) {
+      
+      //set play status
       playing = true;
+      lost = false;
+      hitWall = false;
+      
       if (tick % 100 == 50 && background1.getSpeed() < 2) {
         background1.setSpeed(background1.getSpeed() + 1);
         background2.setSpeed(background2.getSpeed() + 1);
@@ -109,9 +118,11 @@ public class Game extends Canvas implements KeyListener, Runnable {
 
     //CHECK FOR COLISIONS:
     if(traffic.didCollideWithPlayer(player)){
-      player.setPos(344,424);
+      player.setPos(344,524);
       playing = false;
-      score.setCurScore(0);
+      lost = true;
+      
+      
       background1.setSpeed(0);
       background2.setSpeed(0);
       
@@ -130,11 +141,11 @@ public class Game extends Canvas implements KeyListener, Runnable {
     background2.draw(graphToBack);
     background2.increment();
 
-    if (background1.getY() > 600) {
+    if (background1.getY() > 900) {
       background1.setY(background2.getY() - 1600);
       // 1600 is height of background
     }
-    if (background2.getY() > 600) {
+    if (background2.getY() > 900) {
       background2.setY(background1.getY() - 1600);
       // 1600 is height of background
     }
@@ -152,25 +163,28 @@ public class Game extends Canvas implements KeyListener, Runnable {
     
     // BOUNDARIES
     if (player.getX() < 92 || player.getX() + player.getWidth() > 698) {
-      player.setPos(344, 424);
+      player.setPos(344, 524);
       background1.setSpeed(0);
       background2.setSpeed(0);
       playing = false;
+      hitWall = true;
       traffic.removeTraffic();
     } else if (keys[0] && player.getX() > 90 && playing) {
       // 119 IS HITTING THE SIDE
       player.move("left");
-
+      player.isTurning = true;
     }
 
     else if (keys[1] && player.getX() + player.getWidth() < 700 && playing) {
       // 673 IS HITTING THE SIDE
       player.move("right");
+      player.isTurning = true;
 
     }
 
     else {
       player.move("straight");
+      player.isTurning = false;
       //makes player stop rotating when not turning
     }
 
@@ -197,6 +211,23 @@ public class Game extends Canvas implements KeyListener, Runnable {
     graphToBack.drawString("High Score: \n" + score.getHighScore() / 10, 20, 100);
 
 
+    if(!playing && !lost && !hitWall){
+       graphToBack.setColor(Color.RED);
+       graphToBack.drawString("THE SWIMULATOR", 210, 300);
+      graphToBack.drawString("press SPACE to start playing", 70, 400);
+    }
+    if(!playing && lost){
+      graphToBack.setColor(Color.RED);
+      graphToBack.drawString("YOU LOST", 300,300);
+      graphToBack.drawString("Score: \n" + (int) (score.getCurScore()) / 10, 280, 450);
+      graphToBack.drawString("press SPACE to play again",110,400);
+    }
+    if(!playing && hitWall){
+      graphToBack.setColor(Color.RED);
+      graphToBack.drawString("YOU HIT A WALL", 250,300);
+      graphToBack.drawString("press SPACE to continue play",70,400);
+      graphToBack.drawString("your score has not been reset",60,450);
+    }
 
     
     twoDGraph.drawImage(back, null, 0, 0);
@@ -252,13 +283,14 @@ public class Game extends Canvas implements KeyListener, Runnable {
       keys[3] = false;
     }
     if (e.getKeyCode() == 32) {
+      score.setCurScore(0);
       keys[8] = false;
     }
     if (e.getKeyCode() == 27) {
       background1.setSpeed(0);
       background2.setSpeed(0);
       playing = false;
-      player.setPos(344, 424);
+      player.setPos(344, 524);
       traffic.removeTraffic();
     }
 
