@@ -167,7 +167,7 @@ public class Car implements Collideable
     //when the car is turning, adjust for the turning by making hitboxes vertically smaller
     if(other.isTurning){
      
-      if(this.getY()-40>other.getY()+other.getHeight() || this.getX()+this.getWidth()-40 < other.getX() || this.getX()+40>other.getX()+other.getWidth() || this.getY()+this.getHeight()-40<other.getY()){
+      if(this.getY()+40>other.getY()+other.getHeight() || this.getX()+this.getWidth()-40 < other.getX() || this.getX()+40>other.getX()+other.getWidth() || this.getY()+this.getHeight()-40<other.getY()){
       return false;
       }
       return true;

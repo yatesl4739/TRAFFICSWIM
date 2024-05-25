@@ -1,4 +1,4 @@
-desert
+dsdesert
 bridge with water underneath
 forest with trees
 regular road 

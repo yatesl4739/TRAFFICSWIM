@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.Thread;
 import java.io.*;
+import java.net.URL;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
 
 
 
 
-public class Game extends Canvas implements KeyListener, Runnable {
+public class Game extends Canvas implements KeyListener, Runnable,MouseListener {
 
   // DEFINING VARIABLES
   private Player player;
@@ -25,7 +28,11 @@ public class Game extends Canvas implements KeyListener, Runnable {
   private boolean playing = false;
   private boolean lost = false;
   private boolean hitWall = false;
-  
+
+
+  private carColor carColor = new carColor();
+
+  private Difficulty difficulty = new Difficulty();
   private Score score = new Score();
   private Traffic traffic = new Traffic();
   private boolean[] keys;
@@ -33,21 +40,51 @@ public class Game extends Canvas implements KeyListener, Runnable {
   private long tick = 0;
   private Font pricedown;
 
+
+  private int difficultyNum;
+  
+
+  
+  private Image blurryImage;
+  private long startTick = 0;
+
+  private boolean displayBoost = false;
+  private long endTick;
+
   private Background background1;
   private Background background2;
 
   // GAME THING
   public Game() {
+    
 
     // SETTING THE VARAIBLES
     setBackground(Color.WHITE);
+
+    
+    addMouseListener(this);
+    
+    
+
+    
     keys = new boolean[9];
 
-    player = new Player(344, 524);
+    player = new Player(354, 524);
+    carColor.setPlayer(player);
     this.addKeyListener(this);
 
     background1 = new Background("src/main/java/background.png", 0, 1300);
     background2 = new Background("src/main/java/background.png", 0, 2900);
+
+    try {
+      URL url = getClass().getResource("/src/main/java/Blurry.png");
+      blurryImage = ImageIO.read(url);
+
+    }
+    catch(Exception e){
+      System.out.println("PROBLEM WITH start IMAGE");
+     //feel free to do something here 
+    }
 
     // desertBackground1 = new Background("src/main/java/background.png");
     // desertBackground2 = new Background("src/main/java/background2.png", 0,
@@ -81,18 +118,107 @@ public class Game extends Canvas implements KeyListener, Runnable {
   boolean new1 = false;
 
   public void paint(Graphics window) {
+    Graphics2D twoDGraph = (Graphics2D) window;
+      if (back == null)
+        back = (BufferedImage) (createImage(getWidth(), getHeight()));
+      Graphics graphToBack = back.createGraphics();
+
+
+
+
+    if(keys[8]){
+      playing = true;
+      lost = false;
+      hitWall = false;
+    }
+    
+
+
+    //THIS IS THE START MENU
+    if(!playing && !lost && !hitWall){
+      carColor.getColor();
+      difficultyNum = difficulty.scanDifficulty();
+      graphToBack.drawImage(blurryImage,(int)(getX()), (int)(getY()), 800,900, null);
+      graphToBack.setFont(pricedown);
+       graphToBack.setColor(Color.BLACK);
+       graphToBack.drawString("THE SWIMULATOR", 210, 300);
+      graphToBack.drawString("press SPACE to start playing", 70, 400);
+
+      
+      if(difficultyNum == 0){
+        graphToBack.setColor(Color.GREEN);
+        graphToBack.drawString("EASY", 70, 500);
+        traffic.changeSpawnChance(.008);
+      }
+      else{
+        graphToBack.setColor(Color.RED);
+        graphToBack.drawString("EASY", 70, 500);
+      }
+
+      if(difficultyNum == 1){
+        graphToBack.setColor(Color.GREEN);
+        graphToBack.drawString("MEDIUM", 310, 500);
+        traffic.changeSpawnChance(.01);
+      }
+      else{
+        graphToBack.setColor(Color.RED);
+        graphToBack.drawString("MEDIUM", 310, 500);
+        
+      }
+
+      if(difficultyNum == 2){
+        graphToBack.setColor(Color.GREEN);
+        graphToBack.drawString("HARD", 610, 500);
+        traffic.changeSpawnChance(.1);
+      }
+      else{
+        graphToBack.setColor(Color.RED);
+        graphToBack.drawString("HARD", 610, 500);
+      }
+
+
+    
+
+
+
+      //START OF CAR COLOR SELECTOR
+      if(carColor.getColor()==0){
+        graphToBack.setColor(Color.WHITE);
+        graphToBack.drawString("CAR COLOR", 280, 575);
+      }
+      else if(carColor.getColor()==1){
+        graphToBack.setColor(Color.ORANGE);
+        graphToBack.drawString("CAR COLOR", 280, 575);
+      }
+      else if(carColor.getColor()==2){
+        graphToBack.setColor(Color.BLUE);
+        graphToBack.drawString("CAR COLOR", 280, 575);
+      }
+      else if(carColor.getColor()==3){
+        graphToBack.setColor(Color.RED);
+        graphToBack.drawString("CAR COLOR", 280, 575);
+      }
+
+      
+      
+      
+    }
+    else if(!playing &&( lost || hitWall)){
+      graphToBack.drawImage(blurryImage,(int)(getX()), (int)(getY()), 800,900, null);
+      graphToBack.setFont(pricedown);
+      graphToBack.setColor(Color.WHITE);
+      graphToBack.drawString("YOU LOST", 300,300);
+      graphToBack.drawString("Score: \n" + (int) (score.getCurScore()) / 10, 280, 450);
+      graphToBack.drawString("press SPACE to play again",110,400);
+    }
+    else{
 
 
     
 
     // SMOOTHER GRAPHICS THING
 
-    Graphics2D twoDGraph = (Graphics2D) window;
-    if (back == null)
-      back = (BufferedImage) (createImage(getWidth(), getHeight()));
-    Graphics graphToBack = back.createGraphics();
-
-    
+  
     // TICK INCREMENT
     tick++;
 
@@ -118,7 +244,7 @@ public class Game extends Canvas implements KeyListener, Runnable {
 
     //CHECK FOR COLISIONS:
     if(traffic.didCollideWithPlayer(player)){
-      player.setPos(344,524);
+      player.setPos(354,524);
       playing = false;
       lost = true;
       
@@ -163,7 +289,7 @@ public class Game extends Canvas implements KeyListener, Runnable {
     
     // BOUNDARIES
     if (player.getX() < 92 || player.getX() + player.getWidth() > 698) {
-      player.setPos(344, 524);
+      player.setPos(354, 524);
       background1.setSpeed(0);
       background2.setSpeed(0);
       playing = false;
@@ -201,6 +327,23 @@ public class Game extends Canvas implements KeyListener, Runnable {
       traffic.moveTraffic("down");
     }
 
+
+    endTick=  tick;
+    //DETECT NEAR HITS:
+    if(traffic.nearHitDetect(player) && endTick>startTick +100 ){
+      startTick = tick;
+      score.setCurScore(score.getCurScore()  + 2000);
+      displayBoost = true;
+    }
+    
+    if(displayBoost && endTick<startTick+100){
+      graphToBack.setColor(Color.GREEN);
+      graphToBack.setFont(pricedown);
+      graphToBack.drawString("NEAR MISS + 200: \n", 290, 50);
+    }
+    else{
+      displayBoost = false;
+    }
     // SCORE BOARD
     graphToBack.setColor(Color.BLACK);
     graphToBack.setFont(pricedown);
@@ -211,24 +354,14 @@ public class Game extends Canvas implements KeyListener, Runnable {
     graphToBack.drawString("High Score: \n" + score.getHighScore() / 10, 20, 100);
 
 
-    if(!playing && !lost && !hitWall){
-       graphToBack.setColor(Color.RED);
-       graphToBack.drawString("THE SWIMULATOR", 210, 300);
-      graphToBack.drawString("press SPACE to start playing", 70, 400);
+   
+    // if(!playing && hitWall){
+    //   graphToBack.setColor(Color.RED);
+    //   graphToBack.drawString("YOU HIT A WALL", 250,300);
+    //   graphToBack.drawString("press SPACE to continue play",70,400);
+    //   graphToBack.drawString("your score has not been reset",60,450);
+    // }
     }
-    if(!playing && lost){
-      graphToBack.setColor(Color.RED);
-      graphToBack.drawString("YOU LOST", 300,300);
-      graphToBack.drawString("Score: \n" + (int) (score.getCurScore()) / 10, 280, 450);
-      graphToBack.drawString("press SPACE to play again",110,400);
-    }
-    if(!playing && hitWall){
-      graphToBack.setColor(Color.RED);
-      graphToBack.drawString("YOU HIT A WALL", 250,300);
-      graphToBack.drawString("press SPACE to continue play",70,400);
-      graphToBack.drawString("your score has not been reset",60,450);
-    }
-
     
     twoDGraph.drawImage(back, null, 0, 0);
   }
@@ -237,18 +370,18 @@ public class Game extends Canvas implements KeyListener, Runnable {
 
   // KEYS STUFF
   public void keyPressed(KeyEvent e) {
-    if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-      keys[0] = true;
-    }
-    if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-      keys[1] = true;
-    }
-    if (e.getKeyCode() == KeyEvent.VK_UP) {
-      keys[2] = true;
-    }
-    if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-      keys[3] = true;
-    }
+      if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+        keys[0] = true;
+      }
+      if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        keys[1] = true;
+      }
+      if (e.getKeyCode() == KeyEvent.VK_UP) {
+        keys[2] = true;
+      }
+      if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+        keys[3] = true;
+      }
     if (e.getKeyCode() == 32) {
       keys[8] = true;
     }
@@ -290,7 +423,7 @@ public class Game extends Canvas implements KeyListener, Runnable {
       background1.setSpeed(0);
       background2.setSpeed(0);
       playing = false;
-      player.setPos(344, 524);
+      player.setPos(354, 524);
       traffic.removeTraffic();
     }
 
@@ -326,5 +459,40 @@ public class Game extends Canvas implements KeyListener, Runnable {
   public void keyTyped(KeyEvent e) {
 
   }
+
+  public void mouseClicked(MouseEvent e)
+    {
+    if(!playing){
+      if(e.getY()>300&&e.getY()<500){
+      if(e.getX()>50&&e.getX()<190){
+        difficulty.setDifficulty(0);
+       
+      }
+      else if(e.getX()>200 && e.getX()<550){
+        difficulty.setDifficulty(1);
+       
+      }
+      else if(e.getX()>560 && e.getX()<750){
+        difficulty.setDifficulty(2);
+        
+        
+      }
+      
+     
+      repaint();
+    }
+      if(e.getX()>275 && e.getX()<450&&e.getY()>550&&e.getY()<650){
+        carColor.incrementColor();
+
+      }
+      repaint();
+    }
+
+    }
+  
+  public void mouseEntered(MouseEvent e) { }
+    public void mouseExited(MouseEvent e) { }
+    public void mousePressed(MouseEvent e) { }
+    public void mouseReleased(MouseEvent e) { }
 
 }

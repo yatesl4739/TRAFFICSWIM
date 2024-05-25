@@ -5,13 +5,15 @@ import java.io.File;
 import java.net.URL;
 
 
+
+
 public class Traffic
 {
 
   //VARIABLES
   int TrafficTick = 0;
-  int[] lastPicked = {60,60,60,60};
-  double spawnChance = .01;
+  int[] lastPicked = {500,500,500,500};
+  private double spawnChance = .1;
   ArrayList<Car> trafficList;
 
 
@@ -122,24 +124,24 @@ public class Traffic
     double randomDec = Math.random();
     int lane = (int)(Math.random()*4);
     if(randomDec<spawnChance){
-      if(lane == 0 && (lastPicked[0]>50)){
+      if(lane == 0 && (lastPicked[0]>120)){
         lastPicked[0]=0;
         return 146;
         
         
         //return REPLACE THIS WITH THE LOCATION OF FIRST LANE
       }
-      else if(lane ==1 && lastPicked[0]>50){
+      else if(lane ==1 && lastPicked[0]>120){
         lastPicked[0] = 0;
-        return 282;
+        return 288;
         //return REPLACE THIS WITH THE LOCATION OF LANE TWO
       }
-      else if(lane == 2 && lastPicked[2]>50){
+      else if(lane == 2 && lastPicked[2]>120){
         lastPicked[2] = 0;
-        return 418;
+        return 423;
         //reuturn REPLACE THIS WITH LOCATION OF LANE THREE
       }
-      else if(lane ==3 && lastPicked[2]>50){
+      else if(lane ==3 && lastPicked[2]>120){
         lastPicked[2] = 0;
         return 554;
       }
@@ -188,10 +190,34 @@ public class Traffic
       trafficList.remove(0);
     }
     for(int i = 0; i<lastPicked.length; i++){
-      lastPicked[i] = 60;
+      lastPicked[i] = 500;
     }
   }
 
+
+  
+/** 
+      changeSpawnChance:
+      EASY SPAWN IS .008
+      MEDIUM SPAWN IS .01
+      HARD SPAWN IS .016
+
+  */
+
+  public void changeSpawnChance(double newSpawnChance){
+    spawnChance = newSpawnChance;
+  }
+
+
+  
+  public boolean nearHitDetect(Player player){
+    for(int i = 0; i<trafficList.size(); i++){
+      if(trafficList.get(i).nearMiss(player)){
+        return true;
+      }
+    }
+    return false;
+  }
   public boolean didCollideWithPlayer(Player player){
     for(int i = 0; i<trafficList.size(); i++){
       if(trafficList.get(i).didCollide(player)){
