@@ -38,7 +38,7 @@ public class Traffic
 
     try {
 
-      URL url = getClass().getResource("src/main/java/ORANGECAR.png");
+      URL url = getClass().getResource("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/ORANGECAR.png");
       returnThis = ImageIO.read(url);
     } catch (Exception e) {
       System.out.println("PROBLEM WITH TRAFFIC IMAGE");
@@ -47,7 +47,7 @@ public class Traffic
     if(randomInt==0){
       try {
 
-        URL url = getClass().getResource("/src/main/java/BLUECAR.png");
+        URL url = getClass().getResource("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/BLUECAR.png");
         returnThis = ImageIO.read(url);
       } catch (Exception e) {
         System.out.println("PROBLEM WITH TRAFFIC IMAGE");
@@ -61,7 +61,7 @@ public class Traffic
     if(randomInt == 1){
       try {
 
-        URL url = getClass().getResource("/src/main/java/REDCAR.png");
+        URL url = getClass().getResource("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/REDCAR.png");
         returnThis = ImageIO.read(url);
       } catch (Exception e) {
         System.out.println("PROBLEM WITH TRAFFIC IMAGE");
@@ -70,7 +70,7 @@ public class Traffic
     if(randomInt == 2){
       try {
 
-        URL url = getClass().getResource("/src/main/java/COPCAR.png");
+        URL url = getClass().getResource("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/COPCAR.png");
         returnThis = ImageIO.read(url);
       } catch (Exception e) {
         System.out.println("PROBLEM WITH TRAFFIC IMAGE");

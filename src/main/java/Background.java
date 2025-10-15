@@ -16,7 +16,7 @@ public class Background {
   //DEFAULT CONSTRUCTORS
     public Background(){
         try {
-            URL url = getClass().getResource("/src/main/java/background.png");
+            URL url = getClass().getResource("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/background.png");
             image = ImageIO.read(url);
             
         }

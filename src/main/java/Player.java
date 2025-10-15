@@ -22,7 +22,7 @@ public class Player extends Car {
 
     try {
 
-      URL url = getClass().getResource("/src/main/java/WHITECAR.png");
+      URL url = getClass().getResource("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/WHITECAR.png");
       image = ImageIO.read(url);
     } catch (Exception e) {
       System.out.println("PROBLEM WITH PLAYER IMAGE");
@@ -48,10 +48,10 @@ public class Player extends Car {
   }
 
   public void setCarColor(int newColor) {
-    String pathOfCarColor = "/src/main/java/";
+    String pathOfCarColor = "/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/";
     newColor = newColor;
     if (newColor == 0) {
-      pathOfCarColor += "WHITECAR.png";
+      pathOfCarColor += "SIMONSCAR.png";
 
     } else if (newColor == 1) {
       pathOfCarColor += "ORANGECAR.png";

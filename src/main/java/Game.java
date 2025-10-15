@@ -73,11 +73,11 @@ public class Game extends Canvas implements KeyListener, Runnable,MouseListener 
     carColor.setPlayer(player);
     this.addKeyListener(this);
 
-    background1 = new Background("src/main/java/background.png", 0, 1300);
-    background2 = new Background("src/main/java/background.png", 0, 2900);
+    background1 = new Background("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/background.png", 0, 1300);
+    background2 = new Background("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/background.png", 0, 2900);
 
     try {
-      URL url = getClass().getResource("/src/main/java/Blurry.png");
+      URL url = getClass().getResource("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/Blurry.png");
       blurryImage = ImageIO.read(url);
 
     }
@@ -96,7 +96,7 @@ public class Game extends Canvas implements KeyListener, Runnable,MouseListener 
     // CREATE AN INITALIZE FONT:
     try {
       //create the font to use. Specify the size!
-      pricedown = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/java/pricedown.otf")).deriveFont(50f);
+      pricedown = Font.createFont(Font.TRUETYPE_FONT, new File("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/pricedown.otf")).deriveFont(50f);
       GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
       //register the font
       ge.registerFont(pricedown);
