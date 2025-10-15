@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class carColor{
-  private File carDat= new File("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/carColor.txt");
+  private File carDat= new File("src/main/java/carColor.txt");
   private Scanner scan = new Scanner(System.in);
   private int color;
   private Player player;
@@ -63,7 +63,7 @@ public class carColor{
   public void writeColor(int colorToWrite){
     try {
       String cur = "" + colorToWrite;
-      FileWriter myWriter = new FileWriter("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/carColor.txt");
+      FileWriter myWriter = new FileWriter("src/main/java/carColor.txt");
       myWriter.write(cur);
       myWriter.close();
       //System.out.println("Successfully wrote to the file.");

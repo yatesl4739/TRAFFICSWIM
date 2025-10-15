@@ -24,7 +24,7 @@ public class Car implements Collideable
     height = 150;
     speed = 3;
     try{
-    URL url = getClass().getResource("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/COPCAR.png");
+    URL url = getClass().getResource("/COPCAR.png");
     mainImage = ImageIO.read(url);
     }
     catch (Exception e) {

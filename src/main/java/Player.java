@@ -1,9 +1,6 @@
-import java.util.*;
 import java.awt.*;
 import javax.imageio.ImageIO;
-import java.io.File;
 import java.net.URL;
-import java.awt.geom.AffineTransform;
 
 public class Player extends Car {
   // VARIABLES
@@ -22,7 +19,7 @@ public class Player extends Car {
 
     try {
 
-      URL url = getClass().getResource("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/WHITECAR.png");
+      URL url = getClass().getResource("/WHITECAR.png");
       image = ImageIO.read(url);
     } catch (Exception e) {
       System.out.println("PROBLEM WITH PLAYER IMAGE");
@@ -48,7 +45,7 @@ public class Player extends Car {
   }
 
   public void setCarColor(int newColor) {
-    String pathOfCarColor = "/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/";
+    String pathOfCarColor = "/";
     newColor = newColor;
     if (newColor == 0) {
       pathOfCarColor += "SIMONSCAR.png";

@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Score{
-  private File ScoreDat= new File("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/Score.txt");
+  private File ScoreDat= new File("src/main/java/Score.txt");
   private Scanner scan = new Scanner(System.in);
   private int highScore;
   private int currentScore;
@@ -60,7 +60,7 @@ public class Score{
   public void writeHighScore(int highScoreToWrite){
     try {
       String cur = "" + highScoreToWrite;
-      FileWriter myWriter = new FileWriter("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/target/classes/Score.txt");
+      FileWriter myWriter = new FileWriter("src/main/java/Score.txt");
       myWriter.write(cur);
       myWriter.close();
       //System.out.println("Successfully wrote to the file.");

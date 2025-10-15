@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Difficulty{
-  private File diffDat= new File("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/src/main/java/difficulty.txt");
+  private File diffDat= new File("src/main/java/difficulty.txt");
   private Scanner scan = new Scanner(System.in);
   private int diff;
   public Difficulty(){
@@ -51,7 +51,7 @@ public class Difficulty{
   public void writeDifficulty(int diffToWrite){
     try {
       String cur = "" + diffToWrite;
-      FileWriter myWriter = new FileWriter("/Users/liamyates/IdeaProjects/TRAFFICSWIM1/src/main/java/difficulty.txt");
+      FileWriter myWriter = new FileWriter("src/main/java/difficulty.txt");
       myWriter.write(cur);
       myWriter.close();
       //System.out.println("Successfully wrote to the file.");
