@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+/**
+ * Loads car color save file and loads all car color pictures
+ * assigns and manages the colors of each car
+ *
+ * @version 5/25/24
+ */
 public class carColor{
   private File carDat= new File("src/main/java/carColor.txt");
   private Scanner scan = new Scanner(System.in);

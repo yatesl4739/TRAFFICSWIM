@@ -5,8 +5,11 @@ import java.io.File;
 import java.net.URL;
 
 
-
-
+/**
+ * Genorates traffic on the road and manages and spawns the cars
+ * @version  5/25/24
+ *
+ */
 public class Traffic
 {
 

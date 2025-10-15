@@ -12,8 +12,18 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
 
+/**
+ * This is the main game class, containing all the main game logic and main game loop.
+ * This was completed during the second semester of CSA with Colton Cavicke and Liam Yates
+ *
+ * @see Main class
+ * @Author Liam Yates Colton Cavicke
+ * @Version Working version Oct-15-2025
+ */
 
-
+//============
+//The github is made public on wednesday, october 15th 2025, this project was compleatly made from scratch by Colton Cavicke and Liam Yates
+//=============
 
 public class Game extends Canvas implements KeyListener, Runnable,MouseListener {
 
@@ -143,6 +153,7 @@ public class Game extends Canvas implements KeyListener, Runnable,MouseListener 
        graphToBack.setColor(Color.BLACK);
        graphToBack.drawString("THE SWIMULATOR", 210, 300);
       graphToBack.drawString("press SPACE to start playing", 70, 400);
+      graphToBack.drawString("Created by Colton and Liam in CSA", 10, 1000);
 
       
       if(difficultyNum == 0){

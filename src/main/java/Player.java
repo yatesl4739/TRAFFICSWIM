@@ -2,6 +2,12 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import java.net.URL;
 
+/**
+ * Player class defines the player, how it moves, and its car
+ * extends car
+ * @version 5/25/24
+ *
+ */
 public class Player extends Car {
   // VARIABLES
   private Image image;

@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+/**
+ * Manages and changes the difficulty of the game as time goes on
+ * saves and loads the diffculty from a save file
+ *
+ * @version 5/25/24
+ */
 public class Difficulty{
   private File diffDat= new File("src/main/java/difficulty.txt");
   private Scanner scan = new Scanner(System.in);

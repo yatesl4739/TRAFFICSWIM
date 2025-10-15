@@ -2,6 +2,11 @@ import javax.swing.JFrame;
 
 import java.awt.Component;
 
+/**
+ * Manages window. Creates window and runs the game within the JFrame
+ *
+ * @version 5/22/24
+ */
 public class Swimulator extends JFrame
 {
   public static final int WIDTH = 800;

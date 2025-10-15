@@ -2,6 +2,9 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import java.net.URL;
 
+/**
+ * Creates the image of the background and scrolls it forever
+ */
 public class Background {
 
   //VARIABLES

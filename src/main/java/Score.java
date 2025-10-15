@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+/**
+ * Manages and saves score system of the game
+ * @version 5/21/24
+ */
 public class Score{
   private File ScoreDat= new File("src/main/java/Score.txt");
   private Scanner scan = new Scanner(System.in);

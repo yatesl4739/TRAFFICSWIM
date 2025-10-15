@@ -4,7 +4,11 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.net.URL;
 
-
+/**
+ * Defines what a car is and how it moves.
+ *
+ * @version 5/22/25
+ */
 public class Car implements Collideable
 {
   public int xPos;
